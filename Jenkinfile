@@ -3,6 +3,7 @@ pipeline {
     parameters { 
           string(name: 'Nexus_IP', defaultValue: '20.204.103.101', description: 'Nexus IP')
           string(name: 'Nexus_Repo', defaultValue: 'maven-snapshots', description: 'Nexus Repository')
+          choice(name: 'branch', choices: ['devlop', 'master', 'feature'], description: 'Select the target branch to build')
           }
     tools {
         maven "MAVEN_HOME"
@@ -13,12 +14,13 @@ pipeline {
         NEXUS_URL = "${params.Nexus_IP}:8081"
         NEXUS_REPOSITORY = "${params.Nexus_Repo}"
         NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
+        BRANCH="${params.branch}"
     }
     stages {
         stage("Clone code from VCS") {
             steps {
                 script {
-                    git 'https://github.com/Ashok437/pipelines-java.git';
+                    git 'https://github.com/Ashok437/pipelines-java.git', branch: 'BRANCH';
                 }
             }
         }
