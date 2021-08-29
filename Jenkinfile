@@ -1,7 +1,8 @@
 pipeline {
-    agent {
-        label "master"
-    }
+    agent any
+    #{
+    #   label "master"
+    #}
     parameters { 
           string(name: 'Nexus_IP', defaultValue: '20.204.103.101', description: 'Nexus IP')
           string(name: 'Nexus_Repo', defaultValue: 'maven-snapshots', description: 'Nexus Repository')
@@ -13,21 +14,21 @@ pipeline {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "${params.Nexus_IP}:8081"
-        NEXUS_REPOSITORY = "Nexus_Repo"
+        NEXUS_REPOSITORY = "${params.Nexus_Repo}"
         NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
     }
     stages {
         stage("Clone code from VCS") {
             steps {
                 script {
-                    git 'https://github.com/javaee/cargotracker.git';
+                    git 'https://github.com/Ashok437/pipelines-java.git';
                 }
             }
         }
         stage("Maven Build") {
             steps {
                 script {
-                    sh "mvn package -DskipTests=true"
+                    sh "mvn clean package -DskipTests=true"
                 }
             }
         }
