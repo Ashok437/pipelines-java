@@ -5,7 +5,7 @@ pipeline {
           string(name: 'Nexus_Repo', defaultValue: 'maven-snapshots', description: 'Nexus Repository')
           }
     tools {
-        maven "Maven"
+        maven "MAVEN_HOME"
     }
     environment {
         NEXUS_VERSION = "nexus3"
