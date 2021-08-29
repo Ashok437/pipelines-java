@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    #{
-    #   label "master"
-    #}
     parameters { 
           string(name: 'Nexus_IP', defaultValue: '20.204.103.101', description: 'Nexus IP')
           string(name: 'Nexus_Repo', defaultValue: 'maven-snapshots', description: 'Nexus Repository')
